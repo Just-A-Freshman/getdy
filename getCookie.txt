@@ -1,0 +1,30 @@
+"""
+本程序用于获取登录一次后的Cookie值，以便后面再次登录界面
+"""
+from selenium import webdriver
+import json
+
+
+# 登录的网址
+douyin_url = 'https://www.douyin.com/'
+
+# 启动浏览器
+wd = webdriver.Edge()     # 看你用什么浏览器，如果是谷歌就用webdriver.Chrome()
+
+# 浏览器打开网页
+wd.get(douyin_url)
+
+# 等待你输入登录信息
+input('输入完成登录后回车继续......')
+
+# 浏览器登录后获取cookie
+cookies = wd.get_cookies()
+print(json.dumps(cookies, indent=4, ensure_ascii=False))
+
+
+# 将cookies保存在本地
+with open("你的文件地址", 'w') as f:
+    f.write(json.dumps(cookies, indent=4, ensure_ascii=False))
+
+# 关闭浏览器
+wd.quit()
